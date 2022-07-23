@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace LessToken\Signer\Key;
 
+/**
+ * @psalm-immutable
+ */
 final class FileKey implements Key
 {
     public function __construct(private readonly string $file)
