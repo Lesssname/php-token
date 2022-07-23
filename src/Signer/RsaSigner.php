@@ -15,7 +15,7 @@ final class RsaSigner extends AbstractSigner
         parent::__construct($algorithm);
     }
 
-    public function create(string $data): string
+    public function sign(string $data): string
     {
         openssl_sign(
             $data,

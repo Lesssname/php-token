@@ -14,14 +14,14 @@ final class HmacSigner extends AbstractSigner
         parent::__construct($algorithm);
     }
 
-    public function create(string $data): string
+    public function sign(string $data): string
     {
         return hash_hmac($this->getAlgorithm(), $data, (string)$this->key, true);
     }
 
     public function verify(string $data, string $signature): bool
     {
-        return hash_equals($this->create($data), $signature);
+        return hash_equals($this->sign($data), $signature);
     }
 
     public function getEncryptionName(): string
