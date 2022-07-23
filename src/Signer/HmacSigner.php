@@ -5,20 +5,27 @@ namespace LessToken\Signer;
 
 use LessToken\Signer\Key\Key;
 
-final class HmacSigner implements Signer
+final class HmacSigner extends AbstractSigner
 {
     public function __construct(
         private readonly Key $key,
-        private readonly string $algorithm,
-    ) {}
+        string $algorithm,
+    ) {
+        parent::__construct($algorithm);
+    }
 
     public function create(string $data): string
     {
-        return hash_hmac($this->algorithm, $data, (string)$this->key, true);
+        return hash_hmac($this->getAlgorithm(), $data, (string)$this->key, true);
     }
 
     public function verify(string $data, string $signature): bool
     {
         return hash_equals($this->create($data), $signature);
+    }
+
+    public function getEncryptionName(): string
+    {
+        return 'hmac';
     }
 }

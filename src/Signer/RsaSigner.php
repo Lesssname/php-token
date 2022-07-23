@@ -5,13 +5,15 @@ namespace LessToken\Signer;
 
 use LessToken\Signer\Key\Key;
 
-final class RsaSigner implements Signer
+final class RsaSigner extends AbstractSigner
 {
     public function __construct(
         private readonly Key $keyPrivate,
         private readonly Key $keyPublic,
-        private readonly string $algorithm,
-    ) {}
+        string $algorithm,
+    ) {
+        parent::__construct($algorithm);
+    }
 
     public function create(string $data): string
     {
@@ -19,7 +21,7 @@ final class RsaSigner implements Signer
             $data,
             $signature,
             (string)$this->keyPrivate,
-            $this->algorithm,
+            $this->getAlgorithm(),
         );
 
         return $signature;
@@ -31,7 +33,12 @@ final class RsaSigner implements Signer
             $data,
             $signature,
             (string)$this->keyPublic,
-            $this->algorithm,
+                $this->getAlgorithm(),
         ) === 1;
+    }
+
+    public function getEncryptionName(): string
+    {
+        return 'rsa';
     }
 }
