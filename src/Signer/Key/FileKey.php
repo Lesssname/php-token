@@ -11,6 +11,9 @@ final class FileKey implements Key
     public function __construct(private readonly string $file)
     {}
 
+    /**
+     * @psalm-suppress ImpureFunctionCall
+     */
     public function __toString(): string
     {
         assert(file_exists($this->file));
