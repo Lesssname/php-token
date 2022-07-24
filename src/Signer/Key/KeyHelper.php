@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace LessToken\Signer\Key;
 
+use LessToken\Signer\Key\Builder\KeyBuilder;
+
 final class KeyHelper
 {
     /**

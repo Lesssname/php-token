@@ -7,6 +7,9 @@ use LessToken\Codec\Builder\TokenCodevBuilder;
 
 final class TokenCodecHelper
 {
+    /**
+     * @param array<mixed> $config
+     */
     public static function fromConfig(array $config): TokenCodec
     {
         assert(is_string($config['builider']));
