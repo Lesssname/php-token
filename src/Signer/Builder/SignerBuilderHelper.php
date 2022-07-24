@@ -7,6 +7,9 @@ use LessToken\Signer\Signer;
 
 final class SignerBuilderHelper
 {
+    /**
+     * @param array<mixed> $config
+     */
     public static function fromConfig(array $config): Signer
     {
         assert(is_string($config['builder']));

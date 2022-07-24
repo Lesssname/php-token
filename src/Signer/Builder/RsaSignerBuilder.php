@@ -9,6 +9,9 @@ use LessToken\Signer\Signer;
 
 final class RsaSignerBuilder implements SignerBuilder
 {
+    /**
+     * @param array<mixed> $config
+     */
     public function build(array $config): Signer
     {
         assert(is_array($config['keyPrivate']));

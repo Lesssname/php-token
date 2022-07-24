@@ -139,7 +139,13 @@ final class JwtTokenCodec implements TokenCodec
             $input,
         );
 
-        return base64_decode($input, true);
+        $decoded = base64_decode($input, true);
+
+        if (!is_string($decoded)) {
+            throw new RuntimeException();
+        }
+
+        return $decoded;
     }
 
     private function getAlgorithName(): string

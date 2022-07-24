@@ -7,6 +7,9 @@ use LessToken\Signer\Key\Key;
 
 final class KeyBuilderHelper
 {
+    /**
+     * @param array<mixed> $config
+     */
     public static function fromConfig(array $config): Key
     {
         assert(is_string($config['builder']));

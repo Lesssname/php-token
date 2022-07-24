@@ -7,5 +7,8 @@ use LessToken\Signer\Signer;
 
 interface SignerBuilder
 {
+    /**
+     * @param array<mixed> $config
+     */
     public function build(array $config): Signer;
 }
