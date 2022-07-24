@@ -33,7 +33,7 @@ final class RsaSigner extends AbstractSigner
             $data,
             $signature,
             (string)$this->keyPublic,
-                $this->getAlgorithm(),
+            $this->getAlgorithm(),
         ) === 1;
     }
 
