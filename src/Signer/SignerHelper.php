@@ -1,19 +1,19 @@
 <?php
 declare(strict_types=1);
 
-namespace LessToken\Signer\Key\Builder;
+namespace LessToken\Signer;
 
-use LessToken\Signer\Key\Key;
+use LessToken\Signer\Builder\SignerBuilder;
 
-final class KeyBuilderHelper
+final class SignerHelper
 {
     /**
      * @param array<mixed> $config
      */
-    public static function fromConfig(array $config): Key
+    public static function fromConfig(array $config): Signer
     {
         assert(is_string($config['builder']));
-        assert(is_subclass_of($config['builder'], KeyBuilder::class));
+        assert(is_subclass_of($config['builder'], SignerBuilder::class));
 
         $builder = new $config['builder']();
 
