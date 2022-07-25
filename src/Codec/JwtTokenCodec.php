@@ -38,6 +38,10 @@ final class JwtTokenCodec implements TokenCodec
             . '.' . $this->urlEncode($this->signer->sign($partial));
     }
 
+    /**
+     * @throws InvalidFormat
+     * @throws InvalidSignature
+     */
     public function decode(string $token): mixed
     {
         if (preg_match('#^([a-zA-Z\d_-]+)\.([a-zA-Z\d_-]+)\.([a-zA-Z\d_-]+)$#', $token, $matches) !== 1) {
@@ -72,20 +76,24 @@ final class JwtTokenCodec implements TokenCodec
             throw new InvalidFormat('Failed claims, exepect array got ' . get_debug_type($claims));
         }
 
-        if (!isset($claims['nbf']) || !is_int($claims['nbf'])) {
-            throw new InvalidFormat('Failed claims.nbf');
+        if (isset($claims['nbf'])) {
+            if (!is_int($claims['nbf'])) {
+                throw new InvalidFormat('Failed claims.nbf');
+            }
+
+            if ($claims['nbf'] > time()) {
+                throw new RuntimeException();
+            }
         }
 
-        if ($claims['nbf'] > time()) {
-            throw new RuntimeException();
-        }
+        if (isset($claims['exp'])) {
+            if (!is_int($claims['exp'])) {
+                throw new InvalidFormat('Failed claims.exp');
+            }
 
-        if (!isset($claims['exp']) || !is_int($claims['exp'])) {
-            throw new InvalidFormat('Failed claims.exp');
-        }
-
-        if ($claims['exp'] < time()) {
-            throw new RuntimeException();
+            if ($claims['exp'] < time()) {
+                throw new RuntimeException();
+            }
         }
 
         try {
