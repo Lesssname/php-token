@@ -12,10 +12,10 @@ final class TokenCodecHelper
      */
     public static function fromConfig(array $config): TokenCodec
     {
-        assert(is_string($config['builider']));
-        assert(is_subclass_of($config['builider'], TokenCodevBuilder::class));
+        assert(is_string($config['builder']));
+        assert(is_subclass_of($config['builder'], TokenCodevBuilder::class));
 
-        $builder = new $config['builider']();
+        $builder = new $config['builder']();
 
         assert(is_array($config['config']));
 
