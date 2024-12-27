@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace LessToken\Signer;
 
+use RuntimeException;
 use LessToken\Signer\Key\Key;
 
 final class RsaSigner extends AbstractSigner
@@ -23,6 +24,10 @@ final class RsaSigner extends AbstractSigner
             (string)$this->keyPrivate,
             $this->getAlgorithm(),
         );
+
+        if (!is_string($signature)) {
+            throw new RuntimeException();
+        }
 
         return $signature;
     }
